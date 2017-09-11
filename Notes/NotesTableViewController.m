@@ -99,11 +99,9 @@
     if ([segue.identifier isEqual: @"EditNote"]) {
         
         NoteTableViewCell *cell = (NoteTableViewCell *)sender;
-
         EditNoteViewController *editNoteVC = [segue destinationViewController];
         
-        editNoteVC.titleTextField.text = cell.titleLabel.text;
-        editNoteVC.textView.text = cell.textLabel.text;
+        editNoteVC.note = _notes[[self.tableView indexPathForCell:sender].row];
         
         editNoteVC.title = cell.titleLabel.text;
     } else if ([segue.identifier isEqual: @"NewNote"]) {

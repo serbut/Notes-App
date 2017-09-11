@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Note.h"
 
 @interface EditNoteViewController : UITableViewController
+
+@property (strong, nonatomic) Note *note;
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 
