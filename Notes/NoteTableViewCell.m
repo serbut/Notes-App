@@ -10,6 +10,8 @@
 
 @implementation NoteTableViewCell
 
+@synthesize textLabel, imageView;
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code

@@ -8,6 +8,7 @@
 
 #import "NotesTableViewController.h"
 #import "NoteTableViewCell.h"
+#import "EditNoteViewController.h"
 
 @interface NotesTableViewController ()
 
@@ -20,16 +21,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     _notes = [[NSMutableArray alloc] initWithCapacity:1];
-//    self.tableView.rowHeight = UITableViewAutomaticDimension;
     [self createInitialNotes];
     [self.tableView reloadData];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -59,8 +54,8 @@
     NoteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     cell.titleLabel.text = [_notes[indexPath.row] title];
-    cell.textView.text = [_notes[indexPath.row] text];
-    
+    cell.textLabel.text = [_notes[indexPath.row] text];
+
     return cell;
 }
 
@@ -101,14 +96,21 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    if ([segue.identifier  isEqual: @"EditNote"]) {
-        UIViewController *newVc = [segue destinationViewController];
-
-        NSLog(@"*** Ok!");
+    if ([segue.identifier isEqual: @"EditNote"]) {
         
+        NoteTableViewCell *cell = (NoteTableViewCell *)sender;
+
+        EditNoteViewController *editNoteVC = [segue destinationViewController];
+        
+        editNoteVC.titleTextField.text = cell.titleLabel.text;
+        editNoteVC.textView.text = cell.textLabel.text;
+        
+        editNoteVC.title = cell.titleLabel.text;
+    } else if ([segue.identifier isEqual: @"NewNote"]) {
+        EditNoteViewController *editNoteVC = [segue destinationViewController];
+        
+        editNoteVC.title = @"New note";
     }
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
 }
 
 @end
