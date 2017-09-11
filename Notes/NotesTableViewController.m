@@ -42,7 +42,7 @@
     return _notes.count;
 }
 
--(void) createInitialNotes {
+- (void) createInitialNotes {
     for (int i = 0; i < 10; i++) {
         Note *newNote = [[Note alloc] initNoteWithTitle: [NSString stringWithFormat: @"Note %d", i + 1] withText:@"The UITableViewCell class defines the attributes and behavior of the cells that appear in UITableView objects. This class includes properties and methods for setting and managing cell content and background (including text, images, and custom views), managing the cell selection and highlight state, managing accessory views, and initiating the editing of the cell contents"];
         [_notes addObject:(newNote)];
@@ -109,6 +109,26 @@
         
         editNoteVC.title = @"New note";
     }
+}
+
+- (IBAction)unwindFromEditNote:(UIStoryboardSegue*)sender
+{
+    EditNoteViewController *sourceViewController = sender.sourceViewController;
+
+    NSString *title = sourceViewController.titleTextField.text;
+    NSString *text = sourceViewController.textView.text;
+    
+    if (title != nil && text != nil) {
+        Note *note = sourceViewController.note;
+        if (note != nil) {
+            note.title = title;
+            note.text = text;
+        } else {
+            [_notes addObject: [[Note alloc] initNoteWithTitle: title withText:text]];
+        }
+    }
+    
+    [self.tableView reloadData];
 }
 
 @end
