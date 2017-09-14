@@ -23,6 +23,7 @@
     [super viewDidLoad];
     
     _notes = [[NSMutableArray alloc] initWithCapacity:1];
+    self.navigationItem.leftBarButtonItem = self.editButtonItem;
     
     [self loadNotes];
 }
@@ -33,7 +34,7 @@
     
     NSFetchRequest<NSManagedObject*> *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Note"];
     NSError *error ;
-    NSArray *resultArray= [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    NSArray *resultArray = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
     [_notes addObjectsFromArray:resultArray];
 }
 
@@ -71,9 +72,19 @@
 
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
     return YES;
 }
+
+- (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        Note * noteToDelete = _notes[indexPath.row];
+        [_managedObjectContext deleteObject: noteToDelete];
+        [_notes removeObject:noteToDelete];
+        [self.tableView reloadData];
+        [_appDelegate saveContext];
+    }
+}
+
 
 #pragma mark - Navigation
 
