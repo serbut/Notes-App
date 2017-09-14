@@ -7,12 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Note.h"
+#import "Note+CoreDataProperties.h"
+#import "AppDelegate.h"
 
 @interface NotesTableViewController : UITableViewController
 
-@property NSMutableArray* notes;
+@property NSMutableArray *notes;
+@property AppDelegate *appDelegate;
+@property NSManagedObjectContext *managedObjectContext;
 
--(void) createInitialNotes;
+-(void) loadNotes;
+-(void) addNote: (Note*) note;
 
 @end

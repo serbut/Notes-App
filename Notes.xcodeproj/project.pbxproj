@@ -15,8 +15,9 @@
 		079F4D561F627B5E00EA6765 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 079F4D551F627B5E00EA6765 /* Assets.xcassets */; };
 		079F4D591F627B5E00EA6765 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 079F4D571F627B5E00EA6765 /* LaunchScreen.storyboard */; };
 		079F4D621F627C1100EA6765 /* NotesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 079F4D611F627C1100EA6765 /* NotesTableViewController.m */; };
-		079F4D671F627DFD00EA6765 /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 079F4D661F627DFD00EA6765 /* Note.m */; };
 		079F4D6A1F627F3C00EA6765 /* NoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 079F4D691F627F3C00EA6765 /* NoteTableViewCell.m */; };
+		07C3A56B1F694E3A003132E6 /* Note+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C3A5681F694E3A003132E6 /* Note+CoreDataClass.m */; };
+		07C3A56C1F694E3A003132E6 /* Note+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C3A56A1F694E3A003132E6 /* Note+CoreDataProperties.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,10 +34,12 @@
 		079F4D5A1F627B5E00EA6765 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		079F4D601F627C1100EA6765 /* NotesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotesTableViewController.h; sourceTree = "<group>"; };
 		079F4D611F627C1100EA6765 /* NotesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotesTableViewController.m; sourceTree = "<group>"; };
-		079F4D651F627DFD00EA6765 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
-		079F4D661F627DFD00EA6765 /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Note.m; sourceTree = "<group>"; };
 		079F4D681F627F3C00EA6765 /* NoteTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteTableViewCell.h; sourceTree = "<group>"; };
 		079F4D691F627F3C00EA6765 /* NoteTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteTableViewCell.m; sourceTree = "<group>"; };
+		07C3A5671F694E3A003132E6 /* Note+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Note+CoreDataClass.h"; sourceTree = "<group>"; };
+		07C3A5681F694E3A003132E6 /* Note+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Note+CoreDataClass.m"; sourceTree = "<group>"; };
+		07C3A5691F694E3A003132E6 /* Note+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Note+CoreDataProperties.h"; sourceTree = "<group>"; };
+		07C3A56A1F694E3A003132E6 /* Note+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Note+CoreDataProperties.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +56,10 @@
 		079F4D3A1F627B5E00EA6765 = {
 			isa = PBXGroup;
 			children = (
+				07C3A5671F694E3A003132E6 /* Note+CoreDataClass.h */,
+				07C3A5681F694E3A003132E6 /* Note+CoreDataClass.m */,
+				07C3A5691F694E3A003132E6 /* Note+CoreDataProperties.h */,
+				07C3A56A1F694E3A003132E6 /* Note+CoreDataProperties.m */,
 				079F4D451F627B5E00EA6765 /* Notes */,
 				079F4D441F627B5E00EA6765 /* Products */,
 			);
@@ -77,8 +84,6 @@
 				079F4D691F627F3C00EA6765 /* NoteTableViewCell.m */,
 				073159ED1F66910300B50719 /* EditNoteViewController.h */,
 				073159EE1F66910300B50719 /* EditNoteViewController.m */,
-				079F4D651F627DFD00EA6765 /* Note.h */,
-				079F4D661F627DFD00EA6765 /* Note.m */,
 				079F4D4F1F627B5E00EA6765 /* Main.storyboard */,
 				079F4D551F627B5E00EA6765 /* Assets.xcassets */,
 				079F4D571F627B5E00EA6765 /* LaunchScreen.storyboard */,
@@ -169,13 +174,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				079F4D671F627DFD00EA6765 /* Note.m in Sources */,
+				07C3A56B1F694E3A003132E6 /* Note+CoreDataClass.m in Sources */,
 				079F4D4B1F627B5E00EA6765 /* AppDelegate.m in Sources */,
 				079F4D621F627C1100EA6765 /* NotesTableViewController.m in Sources */,
 				073159EF1F66910300B50719 /* EditNoteViewController.m in Sources */,
 				079F4D6A1F627F3C00EA6765 /* NoteTableViewCell.m in Sources */,
 				079F4D481F627B5E00EA6765 /* main.m in Sources */,
 				079F4D541F627B5E00EA6765 /* Notes.xcdatamodeld in Sources */,
+				07C3A56C1F694E3A003132E6 /* Note+CoreDataProperties.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

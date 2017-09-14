@@ -23,8 +23,26 @@
     [super viewDidLoad];
     
     _notes = [[NSMutableArray alloc] initWithCapacity:1];
-    [self createInitialNotes];
-    [self.tableView reloadData];
+    
+    [self loadNotes];
+}
+
+- (void) loadNotes {
+    _appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    _managedObjectContext = _appDelegate.persistentContainer.viewContext;
+    
+    NSFetchRequest<NSManagedObject*> *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Note"];
+    NSError *error ;
+    NSArray *resultArray= [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    [_notes addObjectsFromArray:resultArray];
+}
+
+- (void) addNote:(Note *)note {
+    NSManagedObject *entityNameObj = [NSEntityDescription insertNewObjectForEntityForName:@"Note" inManagedObjectContext:_managedObjectContext];
+    [entityNameObj setValue:note.title forKey:@"title"];
+    [entityNameObj setValue:note.text forKey:@"text"];
+    [_appDelegate saveContext];
+    NSLog(@"Note with title %@ saved", note.title);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -42,14 +60,6 @@
     return _notes.count;
 }
 
-- (void) createInitialNotes {
-    for (int i = 0; i < 10; i++) {
-        Note *newNote = [[Note alloc] initNoteWithTitle: [NSString stringWithFormat: @"Note %d", i + 1] withText:@"The UITableViewCell class defines the attributes and behavior of the cells that appear in UITableView objects. This class includes properties and methods for setting and managing cell content and background (including text, images, and custom views), managing the cell selection and highlight state, managing accessory views, and initiating the editing of the cell contents"];
-        [_notes addObject:(newNote)];
-        
-    }
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NoteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
@@ -64,32 +74,6 @@
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Navigation
 
@@ -124,10 +108,11 @@
             note.title = title;
             note.text = text;
         } else {
-            [_notes addObject: [[Note alloc] initNoteWithTitle: title withText:text]];
+            note =  [[Note alloc] init];
+            [_notes addObject: note];
+            [self addNote: note];
         }
     }
-    
     [self.tableView reloadData];
 }
 
